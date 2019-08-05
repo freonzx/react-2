@@ -80,7 +80,7 @@ class CommentsBlock extends Component {
                     })}
                 </div>
 
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <div className='form-group'>
                         <label htmlFor='exampleInputEmail1'>Comment</label>
                         <textarea
@@ -94,7 +94,6 @@ class CommentsBlock extends Component {
                         />
                     </div>
                     <button
-                        onClick={this.handleSubmit}
                         disabled={!isLogged()}
                         type='submit'
                         className='btn btn-primary'

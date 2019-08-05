@@ -66,7 +66,15 @@ class App extends Component {
                             }}
                         />
                         <Route
+                            exact
                             path='/'
+                            component={props => {
+                                return <HomeRoute searchString={searchString} />
+                            }}
+                        />
+                        <Route
+                            exact
+                            path='/:searchString'
                             component={props => {
                                 return <HomeRoute searchString={searchString} />
                             }}
