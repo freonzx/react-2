@@ -37,8 +37,8 @@ class CommentsBlock extends Component {
         this.setState({ comments: newComments })
     }
 
-    renderComment = comment => (
-        <div className='Comment media text-muted pt-3'>
+    renderComment = (comment, key) => (
+        <div key={key} className='Comment media text-muted pt-3'>
             <FontAwesomeIcon className='mr-2' size='3x' icon='user-circle' />
             <p className='media-body pb-3 mb-0 small lh-125 border-bottom border-gray'>
                 <strong className='d-block text-gray-dark'>
@@ -75,35 +75,33 @@ class CommentsBlock extends Component {
                     <h6 className='border-bottom border-gray pb-2 mb-0'>
                         Comments
                     </h6>
-                    {comments.map(e => {
-                        return this.renderComment(e)
+                    {comments.map((e, key) => {
+                        return this.renderComment(e, key)
                     })}
                 </div>
 
-                {isLogged() ? (
-                    <form>
-                        <div className='form-group'>
-                            <label htmlFor='exampleInputEmail1'>Comment</label>
-                            <textarea
-                                disabled={false}
-                                value={this.state.comment}
-                                onChange={this.handleChange}
-                                required='required'
-                                className='form-control'
-                                id='comment'
-                                placeholder='Insert your comment here'
-                            />
-                        </div>
-                        <button
-                            onClick={this.handleSubmit}
-                            disabled={false}
-                            type='submit'
-                            className='btn btn-primary'
-                        >
-                            Submit
-                        </button>
-                    </form>
-                ) : null}
+                <form>
+                    <div className='form-group'>
+                        <label htmlFor='exampleInputEmail1'>Comment</label>
+                        <textarea
+                            disabled={!isLogged()}
+                            value={this.state.comment}
+                            onChange={this.handleChange}
+                            required='required'
+                            className='form-control'
+                            id='comment'
+                            placeholder='Insert your comment here'
+                        />
+                    </div>
+                    <button
+                        onClick={this.handleSubmit}
+                        disabled={!isLogged()}
+                        type='submit'
+                        className='btn btn-primary'
+                    >
+                        Submit
+                    </button>
+                </form>
             </div>
         )
     }
