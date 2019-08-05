@@ -50,6 +50,7 @@ describe('App', () => {
         wrapper
             .find('Login input[name="password"]')
             .simulate('change', { target: { value: 'pass', name: 'password' } })
+        //Problema aqui
         wrapper.find('Login button.login').simulate('click')
         wrapper.find('Login form').simulate('submit')
         expect(loginService.isLogged()).toBeTruthy()
@@ -86,6 +87,7 @@ describe('App', () => {
         wrapper
             .find('Login input[name="password"]')
             .simulate('change', { target: { value: 'pass', name: 'password' } })
+        console.log('AAAAAAAAAAAA', wrapper.find('Login button.register'))
         wrapper.find('Login button.register').simulate('click')
         wrapper.find('Login form').simulate('submit')
         expect(loginService.isLogged()).toBeTruthy()

@@ -41,7 +41,7 @@ class Login extends Component {
     }
 
     render = () => {
-        if (isLogged()) return <Redirect to='/' />
+        //if (isLogged()) return <Redirect to='/' />
         return (
             <form className='form-signin'>
                 <div className='text-center mb-4'>
@@ -86,6 +86,7 @@ class Login extends Component {
                     >
                         Login
                     </button>
+
                     <button
                         onClick={this.handleRegister}
                         className='register btn btn-lg btn-secondary btn-block'
