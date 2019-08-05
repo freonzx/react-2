@@ -9,9 +9,7 @@ import { slugify } from '../helpers'
 import recipes from '../sample_data/recipes.json'
 import { withRouter } from 'react-router'
 
-const HomeRoute = ({ searchString }) => (
-    <Home recipes={recipes.results} searchString={searchString} />
-)
+const HomeRoute = () => <Home recipes={recipes.results} />
 const LoginRoute = () => <Login />
 const ProfileRoute = () => <User />
 const RecipePageRoute = ({ recipe }) => {

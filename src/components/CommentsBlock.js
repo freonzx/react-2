@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import commentsService from './../services/commentsService'
 import { withRouter } from 'react-router-dom'
-import { throws } from 'assert'
+//import { throws } from 'assert'
 import { getUser, isLogged } from './../services/loginService'
 
 class CommentsBlock extends Component {
@@ -17,24 +17,25 @@ class CommentsBlock extends Component {
     }
 
     componentDidMount() {
-        const recipeSlug = this.props.match.params.recipe
-        this.setState({
-            comments: commentsService.get(recipeSlug)
-        })
+        this.fetchComments()
         if (isLogged()) {
             this.setState({ user: getUser().username })
         }
+    }
+
+    fetchComments = () => {
+        const recipeSlug = this.props.match.params.recipe
+        this.setState({
+            comments: commentsService.get(recipeSlug),
+            comment: ''
+        })
     }
 
     handleDelete = comment => {
         const recipeSlug = this.props.match.params.recipe
         commentsService.delete(recipeSlug, comment)
 
-        const { comments } = this.state
-        const newComments = comments.filter(e => {
-            return comment.comment !== e.comment
-        })
-        this.setState({ comments: newComments })
+        this.fetchComments()
     }
 
     renderComment = (comment, key) => (
@@ -57,10 +58,11 @@ class CommentsBlock extends Component {
     )
 
     handleSubmit = e => {
-        //e.preventDefault()
+        e.preventDefault()
         const recipeSlug = this.props.match.params.recipe
         const { comment } = this.state
         commentsService.insert(recipeSlug, { comment })
+        this.fetchComments()
     }
 
     handleChange = e => {
@@ -82,7 +84,12 @@ class CommentsBlock extends Component {
 
                 <form onSubmit={this.handleSubmit}>
                     <div className='form-group'>
-                        <label htmlFor='exampleInputEmail1'>Comment</label>
+                        <label htmlFor='exampleInputEmail1'>
+                            Comment{' '}
+                            {!isLogged()
+                                ? '(You must be logged to comment)'
+                                : null}
+                        </label>
                         <textarea
                             disabled={!isLogged()}
                             value={this.state.comment}

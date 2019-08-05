@@ -4,7 +4,7 @@ import { Redirect, withRouter } from 'react-router-dom'
 
 const handleLogout = props => {
     logout()
-    return props.history.push('/user/login')
+    return props.history.push('/')
 }
 
 const User = props => {

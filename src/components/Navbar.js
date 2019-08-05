@@ -15,9 +15,7 @@ const Navbar = ({ searchString = '', change }) => (
         <div className='form-group justify-content-center row col-10 my-2'>
             <input
                 value={searchString}
-                onChange={e => {
-                    change(e)
-                }}
+                onChange={change}
                 className='form-control col-9 mr-2'
                 type='search'
                 placeholder='Search'
