@@ -51,7 +51,7 @@ class Login extends Component {
                 </div>
 
                 <div className='form-label-group'>
-                    <label htmlFor='inputEmail'>Username</label>
+                    <label htmlFor='inputUsername'>Username</label>
                     <input
                         name='username'
                         required
@@ -77,14 +77,11 @@ class Login extends Component {
                     />
                 </div>
 
-                <div>
-                    <p className='text-danger' />
-                </div>
-
                 <div className='mt-5'>
                     <button
                         className='login btn btn-lg btn-primary btn-block'
                         type='submit'
+                        name='login'
                         onClick={this.handleLogin}
                     >
                         Login
@@ -93,6 +90,7 @@ class Login extends Component {
                         onClick={this.handleRegister}
                         className='register btn btn-lg btn-secondary btn-block'
                         type='submit'
+                        name='register'
                     >
                         Register
                     </button>
