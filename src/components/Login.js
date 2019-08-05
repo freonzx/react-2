@@ -14,20 +14,18 @@ class Login extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    handleAlert = () => {
-        alert(this.state.error)
-        this.setState({ error: null })
-    }
-
     handleRegister = e => {
         e.preventDefault()
         const { username, password } = this.state
+
+        if (!username || !password) return
+
         try {
             register({ username, password })
             login({ username, password })
             this.setState({ logged: isLogged() })
         } catch (err) {
-            this.setState({ error: err.message })
+            return alert(err)
         }
     }
 
@@ -38,12 +36,12 @@ class Login extends Component {
             login({ username, password })
             this.setState({ logged: isLogged() })
         } catch (err) {
-            this.setState({ error: err.message })
+            return alert(err)
         }
     }
 
     render = () => {
-        if (this.state.logged) return <Redirect to='/' />
+        if (isLogged()) return <Redirect to='/' />
         return (
             <form className='form-signin'>
                 <div className='text-center mb-4'>
@@ -56,6 +54,7 @@ class Login extends Component {
                     <label htmlFor='inputEmail'>Username</label>
                     <input
                         name='username'
+                        required
                         onChange={this.handleChange}
                         value={this.state.username}
                         className='form-control'
@@ -67,6 +66,7 @@ class Login extends Component {
                 <div className='form-label-group mt-2'>
                     <label htmlFor='inputPassword'>Password</label>
                     <input
+                        required
                         name='password'
                         onChange={this.handleChange}
                         value={this.state.password}
@@ -78,9 +78,7 @@ class Login extends Component {
                 </div>
 
                 <div>
-                    <p className='text-danger'>
-                        {this.state.error ? this.handleAlert() : null}
-                    </p>
+                    <p className='text-danger' />
                 </div>
 
                 <div className='mt-5'>
